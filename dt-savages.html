@@ -13,6 +13,7 @@
 .setup-owned{display:flex;align-items:center;gap:.4rem;color:var(--muted);font-size:.72rem}.setup-owned input{margin:0}.setup-owned:has(input:checked){color:#8ce8bb}.setup-owned:has(input:disabled){opacity:.45}
 .need-totals{margin:0 1rem .8rem;padding:.7rem;border:1px solid rgba(98,216,206,.2);border-radius:.7rem;background:rgba(35,116,111,.08)}.need-totals-title{display:flex;align-items:baseline;gap:.5rem;margin-bottom:.5rem;color:var(--cyan);font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em}.need-totals-title small{color:var(--muted);font-size:.65rem;font-weight:500;text-transform:none;letter-spacing:0}.need-totals>div{display:flex;flex-wrap:wrap;gap:.4rem}.need-totals>div>span{border:1px solid #34495c;border-radius:99rem;background:#121d2a;padding:.32rem .55rem;color:#b8c6d9;font-size:.72rem}.need-totals>div strong{color:#fff}
 .party-player.has-ready-item{border-color:rgba(100,221,167,.58);box-shadow:inset 3px 0 0 rgba(100,221,167,.65),0 0 22px rgba(38,151,102,.08)}.player-ready{width:max-content;margin-top:.18rem;border:1px solid rgba(100,221,167,.38);border-radius:99rem;background:rgba(38,151,102,.14);padding:.18rem .45rem;color:#8ce8bb;font-size:.68rem;font-weight:700}.player-ready strong{color:#b3f3d3}.need-card.ready-to-obtain{border-color:rgba(100,221,167,.58);background:linear-gradient(145deg,rgba(28,65,55,.78),#111925);box-shadow:inset 0 0 0 1px rgba(100,221,167,.08)}.need-card-heading>div{display:flex;align-items:center;justify-content:flex-end;gap:.35rem;flex-wrap:wrap}.ready-badge{border:1px solid rgba(100,221,167,.42);border-radius:99rem;background:rgba(38,151,102,.18);padding:.2rem .45rem;color:#9cebc3;font-size:.64rem;font-weight:800;white-space:nowrap}.source-options>span.ready-source{border-left-color:#64dda7;background:rgba(38,151,102,.12);color:#b3f3d3}.source-options>span.ready-source small{color:#8ce8bb}
+.target-badge.augmented{color:#f5d989;background:rgba(199,151,43,.15);border-color:rgba(243,201,107,.3)}.target-badge.raid{color:#f3a9d1;background:rgba(193,72,139,.15);border-color:rgba(238,132,190,.34)}
 </style>
 </head>
 <body>
@@ -328,8 +329,8 @@ function overview() {
       ...config.raids.map((raid) => `<span class="chip">${player.books[raid.id]} ${esc(raid.label)} books</span>`),
       ...config.upgrades.map((upgrade) => `<span class="chip">${player.upgrades[upgrade.id]} ${esc(upgrade.label.replace(/^Thundersteep(?:ed|ing) /, ""))}</span>`)
     ].join("");
-    const obtainable = readySlots(player, remaining);
-    const readyCount = obtainable.size;
+    const allocated = readySlots(player, remaining);
+    const readyCount = allocated.size;
     const needCards = remaining.map((slot) => {
       const target = player.needs[slot.id];
       if (target === "raid") {
@@ -337,15 +338,15 @@ function overview() {
         const raidLabel = raid?.label ?? slot.raid.toUpperCase();
         const bookName = raid?.book ?? "books";
         const heldBooks = raid ? player.books[raid.id] : 0;
-        const booksReady = obtainable.get(slot.id) === "books";
+        const booksReady = heldBooks >= slot.bookCost;
         return `<article class="need-card ${booksReady ? "ready-to-obtain" : ""}"><div class="need-card-heading"><h3>${esc(slot.label)}</h3><div>${booksReady ? `<span class="ready-badge">Ready to obtain</span>` : ""}<span class="target-badge raid">${esc(choiceLabel.raid)}</span></div></div><p class="source-label">Obtain with either</p><div class="source-options"><span><strong>${esc(raidLabel)} coffer</strong></span><span class="${booksReady ? "ready-source" : ""}"><strong>${slot.bookCost} ${esc(bookName)}</strong><small>${heldBooks} held</small></span></div></article>`;
       }
       const upgrade = upgradeById[slot.upgrade];
       const raid = raidById[upgrade?.raid];
       const heldItems = upgrade ? player.upgrades[upgrade.id] : 0;
       const heldBooks = raid ? player.books[raid.id] : 0;
-      const itemReady = obtainable.get(slot.id) === "item";
-      const booksReady = obtainable.get(slot.id) === "books";
+      const itemReady = heldItems >= 1;
+      const booksReady = Boolean(upgrade && raid && heldBooks >= upgrade.bookCost);
       const ready = itemReady || booksReady;
       return `<article class="need-card ${ready ? "ready-to-obtain" : ""}"><div class="need-card-heading"><h3>${esc(slot.label)}</h3><div>${ready ? `<span class="ready-badge">Ready to obtain</span>` : ""}<span class="target-badge augmented">${esc(choiceLabel.augmented)}</span></div></div><p class="source-label">Upgrade with either</p><div class="source-options"><span class="${itemReady ? "ready-source" : ""}"><strong>1 ${esc(upgrade?.label ?? "upgrade item")}</strong><small>${heldItems} held</small></span><span class="${booksReady ? "ready-source" : ""}"><strong>${upgrade?.bookCost ?? "?"} ${esc(raid?.book ?? "books")}</strong><small>${heldBooks} held</small></span></div></article>`;
     }).join("");
