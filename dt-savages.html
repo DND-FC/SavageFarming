@@ -10,6 +10,7 @@
 .need-grid{grid-template-columns:repeat(4,minmax(0,1fr))}@media(max-width:1000px){.need-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:650px){.need-grid{grid-template-columns:1fr}}
 .import-section{margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--line)}.import-section h3{margin:0 0 .7rem;color:var(--muted);font-size:.85rem;text-transform:uppercase;letter-spacing:.08em}.import-section .import-row{margin-bottom:0}
 .modal-backdrop{position:fixed;inset:0;z-index:1000;display:grid;place-items:start center;overflow-y:auto;padding:2rem 1rem;background:rgba(3,7,13,.86);backdrop-filter:blur(8px)}.setup-modal{width:min(1050px,100%);border:1px solid #3b4b63;border-radius:1rem;background:linear-gradient(145deg,#182231,#0d141f);box-shadow:0 30px 90px #000b;padding:1.25rem}.setup-modal-heading{display:flex;align-items:start;justify-content:space-between;gap:1rem}.setup-modal-heading h2{font-family:Georgia,serif;font-size:1.8rem}.setup-modal-heading p{margin:.5rem 0;color:var(--muted)}.modal-close{font-size:1.35rem;line-height:1;padding:.35rem .55rem;background:transparent}.setup-player-picker{display:grid;grid-template-columns:auto minmax(12rem,20rem);align-items:center;justify-content:start;gap:.75rem;margin:1rem 0}.setup-player-picker span,.setup-modal>h3,.setup-output>label{font-weight:800}.setup-modal>h3{margin:1.25rem 0 .65rem;font-size:.9rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}.setup-slot-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.6rem}.setup-slot-card{display:grid;gap:.45rem;border:1px solid var(--line);border-radius:.7rem;background:#101824;padding:.7rem}.setup-inventory-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem}.setup-inventory-grid label{display:grid;grid-template-columns:1fr 5rem;align-items:center;gap:.5rem;border:1px solid var(--line);border-radius:.65rem;padding:.55rem .65rem;color:var(--muted);font-size:.78rem}.setup-inventory-grid input{width:100%}.setup-output{display:grid;grid-template-columns:1fr auto;gap:.65rem;margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--line)}.setup-output label,.setup-output p{grid-column:1/-1}.setup-output textarea{width:100%;resize:vertical;background:#090f18;color:#dce8f7;border:1px solid #3a475c;border-radius:.65rem;padding:.75rem;font: .8rem/1.5 ui-monospace,SFMono-Regular,Consolas,monospace}.setup-output p{margin:0;color:var(--muted);font-size:.78rem}.setup-output code{color:var(--cyan)}@media(max-width:800px){.setup-slot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.setup-inventory-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.modal-backdrop{padding:.5rem}.setup-modal{padding:.85rem}.setup-slot-grid,.setup-inventory-grid{grid-template-columns:1fr}.setup-player-picker{grid-template-columns:1fr}.setup-output{grid-template-columns:1fr}.setup-output button{width:100%}}
+.setup-owned{display:flex;align-items:center;gap:.4rem;color:var(--muted);font-size:.72rem}.setup-owned input{margin:0}.setup-owned:has(input:checked){color:#8ce8bb}.setup-owned:has(input:disabled){opacity:.45}
 </style>
 </head>
 <body>
@@ -335,7 +336,7 @@ function record() {
       }
       return `<div class="award-entry" data-award-id="${award.id}"><label>${esc(award.label)}${award.quantityPerClear > 1 ? ` ${index + 1}` : ""}<select name="award:${award.id}:${index}" data-award-kind="upgrade" data-upgrade="${award.upgrade}"><option value="">No tracked winner</option>${config.players.map((name) => `<option>${esc(name)}</option>`).join("")}</select></label>${rollGuide}</div>`;
     })).join("");
-    return `<form class="run-form" data-raid="${raid.id}"><div class="run-title"><div><span class="eyebrow">${esc(raid.label)}</span><h2>${esc(raid.name)}</h2></div><strong>${runsRemaining(config, state, raid.id)} left</strong></div><fieldset><legend>Who receives this clear's book?</legend><div class="checks">${attendance}</div></fieldset><div class="award-grid">${awards || "<p>No rolled rewards configured.</p>"}</div><button type="submit">Record clear</button></form>`;
+    return `<form class="run-form" data-raid="${raid.id}"><div class="run-title"><div><span class="eyebrow">${esc(raid.label)}</span><h2>${esc(raid.name)}</h2></div><strong>${runsRemaining(config, state, raid.id)} left</strong></div><fieldset><legend>Who cleared and receives their personal book?</legend><div class="checks">${attendance}</div></fieldset><div class="award-grid">${awards || "<p>No rolled rewards configured.</p>"}</div><button type="submit">Record clear</button></form>`;
   }).join("");
   return `<section class="run-grid">${forms}</section>`;
 }
@@ -351,7 +352,10 @@ function gearSetupMessage() {
 
 function gearSetupModal() {
   if (location.hash !== "#gear-setup") return "";
-  const slotCards = config.slots.map((slot) => `<label class="setup-slot-card"><strong>${esc(slot.label)}</strong><select data-setup-need="${slot.id}">${config.choices.map((choice) => `<option value="${choice.id}" ${gearSetupDraft.needs[slot.id] === choice.id ? "selected" : ""}>${esc(choice.label)}</option>`).join("")}</select></label>`).join("");
+  const slotCards = config.slots.map((slot) => {
+    const target = gearSetupDraft.needs[slot.id];
+    return `<div class="setup-slot-card"><strong>${esc(slot.label)}</strong><select aria-label="${esc(slot.label)} target" data-setup-need="${slot.id}">${config.choices.map((choice) => `<option value="${choice.id}" ${target === choice.id ? "selected" : ""}>${esc(choice.label)}</option>`).join("")}</select><label class="setup-owned"><input type="checkbox" data-setup-complete="${slot.id}" ${gearSetupDraft.complete[slot.id] ? "checked" : ""} ${target === "none" ? "disabled" : ""}> <span>I already have this piece</span></label></div>`;
+  }).join("");
   const bookInputs = config.raids.map((raid) => `<label><span>${esc(raid.label)} books</span><input type="number" min="0" max="999" inputmode="numeric" value="${gearSetupDraft.books[raid.id]}" data-setup-book="${raid.id}"></label>`).join("");
   const upgradeInputs = config.upgrades.map((upgrade) => `<label><span>${esc(upgrade.label)}</span><input type="number" min="0" max="999" inputmode="numeric" value="${gearSetupDraft.upgrades[upgrade.id]}" data-setup-upgrade="${upgrade.id}"></label>`).join("");
   return `<div class="modal-backdrop"><section class="setup-modal" role="dialog" aria-modal="true" aria-labelledby="gear-setup-title"><div class="setup-modal-heading"><div><span class="eyebrow">Personal setup</span><h2 id="gear-setup-title">Prepare your gear plan</h2><p>Pick yourself, enter what you need and what you already hold, then send the generated message to Discord.</p></div><button class="modal-close" data-action="gear-setup-close" aria-label="Close gear setup">×</button></div><label class="setup-player-picker"><span>Who are you?</span><select id="gear-setup-player">${config.players.map((name) => `<option ${name === gearSetupPlayer ? "selected" : ""}>${esc(name)}</option>`).join("")}</select></label><h3>Gear targets</h3><div class="setup-slot-grid">${slotCards}</div><h3>Books and upgrade items already held</h3><div class="setup-inventory-grid">${bookInputs}${upgradeInputs}</div><div class="setup-output"><label for="gear-setup-code">Discord message</label><textarea id="gear-setup-code" readonly rows="5">${esc(gearSetupMessage())}</textarea><button data-action="copy-gear-setup">Copy Discord message</button><p>Paste this directly into Discord. The player merging everyone’s plans can use Discord’s code-block copy button and import the resulting <code>p1.…</code> code.</p></div></section></div>`;
@@ -418,8 +422,19 @@ app.addEventListener("change", (event) => {
     return;
   }
   if (event.target.matches("[data-setup-need]")) {
-    gearSetupDraft.needs[event.target.dataset.setupNeed] = event.target.value;
-    gearSetupDraft.complete[event.target.dataset.setupNeed] = false;
+    const slotId = event.target.dataset.setupNeed;
+    gearSetupDraft.needs[slotId] = event.target.value;
+    gearSetupDraft.complete[slotId] = false;
+    const completeInput = event.target.closest(".setup-slot-card")?.querySelector("[data-setup-complete]");
+    if (completeInput) {
+      completeInput.checked = false;
+      completeInput.disabled = event.target.value === "none";
+    }
+    refreshGearSetupMessage();
+    return;
+  }
+  if (event.target.matches("[data-setup-complete]")) {
+    gearSetupDraft.complete[event.target.dataset.setupComplete] = event.target.checked;
     refreshGearSetupMessage();
     return;
   }
