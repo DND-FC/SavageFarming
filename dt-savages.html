@@ -9,6 +9,7 @@
 .party-summaries{display:grid;gap:.6rem}.party-player{border:1px solid var(--line);border-radius:.8rem;background:rgba(9,14,22,.45);overflow:hidden}.party-player>summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 1rem;cursor:pointer;list-style:none}.party-player>summary::-webkit-details-marker{display:none}.party-player>summary::before{content:"+";color:var(--cyan);font-weight:800}.party-player[open]>summary::before{content:"−"}.party-player>summary>div:first-of-type{display:grid;gap:.2rem;margin-right:auto}.party-player>summary small{color:var(--muted)}.summary-resources{display:flex;justify-content:flex-end;flex-wrap:wrap;max-width:62%}.party-player>.progress.wide{width:auto;margin:0 1rem .9rem}.need-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.7rem;padding:0 1rem 1rem}.need-card{border:1px solid #344258;border-radius:.75rem;background:linear-gradient(145deg,#182231,#111925);padding:.85rem}.need-card-heading{display:flex;align-items:start;justify-content:space-between;gap:.6rem}.need-card h3{margin:0;font-size:1rem}.target-badge{border-radius:99rem;padding:.2rem .45rem;font-size:.64rem;font-weight:800;white-space:nowrap}.target-badge.raid{color:#f5d989;background:rgba(199,151,43,.15);border:1px solid rgba(243,201,107,.3)}.target-badge.augmented{color:#89ded6;background:rgba(57,174,164,.13);border:1px solid rgba(98,216,206,.28)}.source-label{margin:.7rem 0 .35rem;color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.06em}.source-options{display:grid;gap:.4rem}.source-options>span{display:flex;align-items:center;justify-content:space-between;gap:.5rem;border-left:2px solid #455a76;padding:.28rem 0 .28rem .55rem;font-size:.78rem}.source-options small{color:var(--muted);white-space:nowrap}.all-complete{margin:0;padding:0 1rem 1rem;color:var(--muted)}@media(max-width:650px){.party-player>summary{align-items:start;flex-wrap:wrap}.summary-resources{max-width:none;width:100%;justify-content:flex-start;margin-left:1.5rem}.need-grid{grid-template-columns:1fr}}
 .need-grid{grid-template-columns:repeat(4,minmax(0,1fr))}@media(max-width:1000px){.need-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:650px){.need-grid{grid-template-columns:1fr}}
 .import-section{margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--line)}.import-section h3{margin:0 0 .7rem;color:var(--muted);font-size:.85rem;text-transform:uppercase;letter-spacing:.08em}.import-section .import-row{margin-bottom:0}
+.modal-backdrop{position:fixed;inset:0;z-index:1000;display:grid;place-items:start center;overflow-y:auto;padding:2rem 1rem;background:rgba(3,7,13,.86);backdrop-filter:blur(8px)}.setup-modal{width:min(1050px,100%);border:1px solid #3b4b63;border-radius:1rem;background:linear-gradient(145deg,#182231,#0d141f);box-shadow:0 30px 90px #000b;padding:1.25rem}.setup-modal-heading{display:flex;align-items:start;justify-content:space-between;gap:1rem}.setup-modal-heading h2{font-family:Georgia,serif;font-size:1.8rem}.setup-modal-heading p{margin:.5rem 0;color:var(--muted)}.modal-close{font-size:1.35rem;line-height:1;padding:.35rem .55rem;background:transparent}.setup-player-picker{display:grid;grid-template-columns:auto minmax(12rem,20rem);align-items:center;justify-content:start;gap:.75rem;margin:1rem 0}.setup-player-picker span,.setup-modal>h3,.setup-output>label{font-weight:800}.setup-modal>h3{margin:1.25rem 0 .65rem;font-size:.9rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}.setup-slot-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.6rem}.setup-slot-card{display:grid;gap:.45rem;border:1px solid var(--line);border-radius:.7rem;background:#101824;padding:.7rem}.setup-inventory-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem}.setup-inventory-grid label{display:grid;grid-template-columns:1fr 5rem;align-items:center;gap:.5rem;border:1px solid var(--line);border-radius:.65rem;padding:.55rem .65rem;color:var(--muted);font-size:.78rem}.setup-inventory-grid input{width:100%}.setup-output{display:grid;grid-template-columns:1fr auto;gap:.65rem;margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--line)}.setup-output label,.setup-output p{grid-column:1/-1}.setup-output textarea{width:100%;resize:vertical;background:#090f18;color:#dce8f7;border:1px solid #3a475c;border-radius:.65rem;padding:.75rem;font: .8rem/1.5 ui-monospace,SFMono-Regular,Consolas,monospace}.setup-output p{margin:0;color:var(--muted);font-size:.78rem}.setup-output code{color:var(--cyan)}@media(max-width:800px){.setup-slot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.setup-inventory-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.modal-backdrop{padding:.5rem}.setup-modal{padding:.85rem}.setup-slot-grid,.setup-inventory-grid{grid-template-columns:1fr}.setup-player-picker{grid-template-columns:1fr}.setup-output{grid-template-columns:1fr}.setup-output button{width:100%}}
 </style>
 </head>
 <body>
@@ -155,6 +156,8 @@ const upgradeById = Object.fromEntries(config.upgrades.map((upgrade) => [upgrade
 let activeView = "overview";
 let openPlayers = new Set();
 let openOverviewPlayers = new Set();
+let gearSetupPlayer = config.players[0];
+let gearSetupDraft = blankPlayer(config);
 let toastTimer;
 
 const esc = (value) => String(value).replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]);
@@ -342,6 +345,23 @@ function runHistory() {
   return `<section class="panel"><div class="panel-heading"><div><span class="eyebrow">Audit trail</span><h2>Recent clears</h2></div></div><ol class="history">${[...state.runs].reverse().slice(0, 10).map((run) => `<li><strong>${esc(raidById[run.raid]?.label ?? run.raid)}</strong><span>${esc(run.summary ?? "Clear recorded")}</span><time>${esc(run.at ?? "")}</time></li>`).join("")}</ol></section>`;
 }
 
+function gearSetupMessage() {
+  return `${gearSetupPlayer}:\n\`\`\`\np1.${encode(gearSetupDraft)}\n\`\`\``;
+}
+
+function gearSetupModal() {
+  if (location.hash !== "#gear-setup") return "";
+  const slotCards = config.slots.map((slot) => `<label class="setup-slot-card"><strong>${esc(slot.label)}</strong><select data-setup-need="${slot.id}">${config.choices.map((choice) => `<option value="${choice.id}" ${gearSetupDraft.needs[slot.id] === choice.id ? "selected" : ""}>${esc(choice.label)}</option>`).join("")}</select></label>`).join("");
+  const bookInputs = config.raids.map((raid) => `<label><span>${esc(raid.label)} books</span><input type="number" min="0" max="999" inputmode="numeric" value="${gearSetupDraft.books[raid.id]}" data-setup-book="${raid.id}"></label>`).join("");
+  const upgradeInputs = config.upgrades.map((upgrade) => `<label><span>${esc(upgrade.label)}</span><input type="number" min="0" max="999" inputmode="numeric" value="${gearSetupDraft.upgrades[upgrade.id]}" data-setup-upgrade="${upgrade.id}"></label>`).join("");
+  return `<div class="modal-backdrop"><section class="setup-modal" role="dialog" aria-modal="true" aria-labelledby="gear-setup-title"><div class="setup-modal-heading"><div><span class="eyebrow">Personal setup</span><h2 id="gear-setup-title">Prepare your gear plan</h2><p>Pick yourself, enter what you need and what you already hold, then send the generated message to Discord.</p></div><button class="modal-close" data-action="gear-setup-close" aria-label="Close gear setup">×</button></div><label class="setup-player-picker"><span>Who are you?</span><select id="gear-setup-player">${config.players.map((name) => `<option ${name === gearSetupPlayer ? "selected" : ""}>${esc(name)}</option>`).join("")}</select></label><h3>Gear targets</h3><div class="setup-slot-grid">${slotCards}</div><h3>Books and upgrade items already held</h3><div class="setup-inventory-grid">${bookInputs}${upgradeInputs}</div><div class="setup-output"><label for="gear-setup-code">Discord message</label><textarea id="gear-setup-code" readonly rows="5">${esc(gearSetupMessage())}</textarea><button data-action="copy-gear-setup">Copy Discord message</button><p>Paste this directly into Discord. The player merging everyone’s plans can use Discord’s code-block copy button and import the resulting <code>p1.…</code> code.</p></div></section></div>`;
+}
+
+function refreshGearSetupMessage() {
+  const output = document.querySelector("#gear-setup-code");
+  if (output) output.value = gearSetupMessage();
+}
+
 function render() {
   const renderedPlayerPanels = [...app.querySelectorAll("[data-player-panel]")];
   if (renderedPlayerPanels.length) {
@@ -352,7 +372,7 @@ function render() {
     openOverviewPlayers = new Set(renderedOverviewPlayers.filter((panel) => panel.open).map((panel) => panel.dataset.overviewPlayer));
   }
   const content = ({ overview, setup, inventory, record: record })[activeView]();
-  app.innerHTML = `<header><div><span class="kicker">DND FC · Gear tracker</span><h1>${esc(config.title)}</h1><p>${esc(config.subtitle ?? "")}</p></div><a href="${esc(config.sourceUrl ?? "#")}" target="_blank" rel="noreferrer">Loot table ↗</a></header><nav>${[["overview", "Overview"], ["setup", "Gear plans"], ["inventory", "Inventory"], ["record", "Record clear"]].map(([id, label]) => `<button class="${activeView === id ? "active" : ""}" data-view="${id}">${label}</button>`).join("")}</nav><main>${content}</main><div id="toast" role="status"></div>`;
+  app.innerHTML = `<header><div><span class="kicker">DND FC · Gear tracker</span><h1>${esc(config.title)}</h1><p>${esc(config.subtitle ?? "")}</p></div><a href="${esc(config.sourceUrl ?? "#")}" target="_blank" rel="noreferrer">Loot table ↗</a></header><nav>${[["overview", "Overview"], ["setup", "Gear plans"], ["inventory", "Inventory"], ["record", "Record clear"]].map(([id, label]) => `<button class="${activeView === id ? "active" : ""}" data-view="${id}">${label}</button>`).join("")}</nav><main>${content}</main>${gearSetupModal()}<div id="toast" role="status"></div>`;
 }
 
 app.addEventListener("click", async (event) => {
@@ -362,6 +382,12 @@ app.addEventListener("click", async (event) => {
   if (!button) return;
   const { action, player, slot, kind, id } = button.dataset;
   if (action === "copy-url") { save(); await copyText(location.href, "Shared URL copied"); return; }
+  if (action === "copy-gear-setup") { await copyText(gearSetupMessage(), "Discord message copied"); return; }
+  if (action === "gear-setup-close") {
+    history.replaceState(null, "", location.pathname + location.search);
+    render();
+    return;
+  }
   if (action === "toggle-complete") state.players[player].complete[slot] = !state.players[player].complete[slot];
   if (action === "buy-books" && !acquireWithBooks(config, state, player, slot)) { notify("Not enough books"); return; }
   if (action === "use-upgrade" && !acquireWithUpgrade(config, state, player, slot)) { notify("That upgrade item is not in inventory"); return; }
@@ -386,12 +412,34 @@ app.addEventListener("click", async (event) => {
 });
 
 app.addEventListener("change", (event) => {
+  if (event.target.id === "gear-setup-player") {
+    gearSetupPlayer = event.target.value;
+    refreshGearSetupMessage();
+    return;
+  }
+  if (event.target.matches("[data-setup-need]")) {
+    gearSetupDraft.needs[event.target.dataset.setupNeed] = event.target.value;
+    gearSetupDraft.complete[event.target.dataset.setupNeed] = false;
+    refreshGearSetupMessage();
+    return;
+  }
   const select = event.target.closest('[data-field="need"]');
   if (!select) return;
   const player = state.players[select.dataset.player];
   player.needs[select.dataset.slot] = select.value;
   player.complete[select.dataset.slot] = false;
   save(); render();
+});
+
+app.addEventListener("input", (event) => {
+  if (event.target.matches("[data-setup-book]")) {
+    gearSetupDraft.books[event.target.dataset.setupBook] = safeCount(event.target.value);
+    refreshGearSetupMessage();
+  }
+  if (event.target.matches("[data-setup-upgrade]")) {
+    gearSetupDraft.upgrades[event.target.dataset.setupUpgrade] = safeCount(event.target.value);
+    refreshGearSetupMessage();
+  }
 });
 
 app.addEventListener("submit", (event) => {
