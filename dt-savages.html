@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#111827">
+  <title>Dawntrail Heavyweight Savage Gear</title>
+  <style>:root{color-scheme:dark;--bg:#090d14;--panel:#121925;--panel2:#182231;--ink:#eef3fb;--muted:#94a3b8;--line:#293548;--gold:#f3c96b;--cyan:#62d8ce;--red:#ef7c87;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}*{box-sizing:border-box}body{margin:0;color:var(--ink);background:radial-gradient(circle at 80% -10%,#243753 0,transparent 36rem),radial-gradient(circle at 0 20%,#152d30 0,transparent 30rem),var(--bg);min-height:100vh}button,select,input{font:inherit}button{border:1px solid #45536a;border-radius:.65rem;background:#243047;color:var(--ink);padding:.65rem .9rem;cursor:pointer}button:hover{border-color:var(--cyan);transform:translateY(-1px)}header{max-width:1280px;margin:auto;padding:3rem 1.5rem 1.5rem;display:flex;align-items:end;justify-content:space-between;gap:2rem}h1{font-family:Georgia,serif;font-size:clamp(2rem,5vw,4rem);line-height:1;margin:.3rem 0;color:#fff}h2{margin:.2rem 0;font-size:1.25rem}header p,.hint{color:var(--muted);margin:.6rem 0}header a{color:var(--gold);text-decoration:none;white-space:nowrap}.kicker,.eyebrow{text-transform:uppercase;letter-spacing:.15em;font-size:.72rem;font-weight:800;color:var(--cyan)}nav{max-width:1280px;margin:0 auto 1.25rem;padding:0 1.5rem;display:flex;gap:.5rem;overflow:auto}nav button{background:transparent;border-color:transparent;color:var(--muted);white-space:nowrap}nav button.active{color:#fff;background:var(--panel2);border-color:var(--line)}main{max-width:1280px;margin:auto;padding:0 1.5rem 4rem}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1rem}.stat-card,.panel,.run-form{background:linear-gradient(145deg,rgba(24,34,49,.96),rgba(15,22,33,.96));border:1px solid var(--line);border-radius:1rem;box-shadow:0 18px 45px #0005}.stat-card{padding:1.25rem;display:grid;gap:.25rem}.stat-card strong{font-family:Georgia,serif;font-size:3rem;color:var(--gold)}.stat-card span:not(.eyebrow),.stat-card small{color:var(--muted)}.panel{padding:1.25rem;margin-bottom:1rem}.panel-heading,.run-title{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:1rem}.table-scroll{overflow:auto}table{width:100%;border-collapse:collapse;min-width:720px}th,td{text-align:left;padding:.8rem;border-bottom:1px solid var(--line);vertical-align:middle}thead th{color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em}tbody th{color:#fff}td small{display:block;color:var(--muted)}.progress{width:9rem;height:.4rem;border-radius:1rem;background:#263143;overflow:hidden;margin-bottom:.35rem}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--gold))}.chip{display:inline-block;background:#202c3e;border:1px solid #334258;border-radius:99rem;padding:.25rem .5rem;font-size:.75rem;margin:.1rem}.player{border-top:1px solid var(--line)}.player summary{list-style:none;padding:1rem .2rem;display:flex;justify-content:space-between;cursor:pointer}.player summary span{color:var(--muted)}.player summary::-webkit-details-marker{display:none}.player-tools{display:flex;justify-content:flex-end;margin-bottom:.5rem}select,input{background:#0e1520;color:var(--ink);border:1px solid #3a475c;border-radius:.55rem;padding:.55rem;max-width:100%}.actions{display:flex;gap:.35rem;flex-wrap:wrap}.small{font-size:.78rem;padding:.4rem .55rem}.ghost{background:transparent}.completed{opacity:.55}.completed th{text-decoration:line-through}.import-row{display:grid;grid-template-columns:12rem 1fr auto;gap:.6rem;margin-bottom:1rem}.counter{display:flex;align-items:center;gap:.65rem}.counter button{padding:.25rem .55rem}.run-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}.run-form{padding:1.25rem}.run-title{align-items:start}.run-title strong{color:var(--gold)}fieldset{border:0;padding:0;margin:1rem 0}legend{color:var(--muted);margin-bottom:.6rem}.checks{display:grid;grid-template-columns:repeat(2,1fr);gap:.4rem}.check{font-size:.85rem}.award-grid{display:grid;gap:.7rem;margin:1rem 0}.award-grid label{display:grid;gap:.35rem;color:var(--muted);font-size:.85rem}.run-form>button{width:100%;background:#2c665f;border-color:#4c938a}.history{list-style:none;padding:0;margin:0}.history li{display:grid;grid-template-columns:5rem 1fr auto;gap:1rem;padding:.7rem 0;border-bottom:1px solid var(--line)}.history span,.history time{color:var(--muted);font-size:.85rem}#toast{position:fixed;right:1.5rem;bottom:1.5rem;background:#edf7f5;color:#10201d;padding:.8rem 1rem;border-radius:.7rem;box-shadow:0 12px 30px #0008;opacity:0;transform:translateY(1rem);pointer-events:none;transition:.2s}#toast.show{opacity:1;transform:none}@media(max-width:900px){.stats,.run-grid{grid-template-columns:1fr}.import-row{grid-template-columns:1fr}.run-form{max-width:38rem}.stats{grid-template-columns:repeat(3,1fr)}}@media(max-width:650px){header{padding-top:2rem;align-items:start;flex-direction:column;gap:.5rem}.stats{grid-template-columns:1fr}.stat-card{grid-template-columns:auto 1fr;align-items:end}.stat-card .eyebrow,.stat-card small{grid-column:1/-1}.stat-card strong{font-size:2.4rem}.history li{grid-template-columns:4rem 1fr}.history time{display:none}.panel{padding:.9rem}main,nav,header{padding-left:.85rem;padding-right:.85rem}}
+</style>
+</head>
+<body>
+  <div id="app"></div>
+  <noscript>This tracker needs JavaScript to keep its state in the URL.</noscript>
+  <script>window.TRACKER_CONFIG={"id":"dt-heavyweight","output":"dt-savages.html","title":"Dawntrail Heavyweight Savage Gear","subtitle":"AAC Heavyweight M1–M3 (Savage)","sourceUrl":"https://ffxiv.consolegameswiki.com/wiki/AAC_Heavyweight_Tier_(Savage)","players":["Tosha","Mei","Kamila","Babs","Jiroh","Fractal","Poti","Gospi"],"choices":[{"id":"none","label":"Not needed"},{"id":"augmented","label":"Augmented Bygone Brass"},{"id":"raid","label":"Grand Champion's"}],"slots":[{"id":"weapon","label":"Weapon","raid":"m12s","bookCost":8,"upgrade":"solvent"},{"id":"head","label":"Head","raid":"m10s","bookCost":4,"upgrade":"glaze"},{"id":"chest","label":"Chest","raid":"m11s","bookCost":6,"upgrade":"twine"},{"id":"gloves","label":"Gloves","raid":"m10s","bookCost":4,"upgrade":"glaze"},{"id":"legs","label":"Legs","raid":"m11s","bookCost":6,"upgrade":"twine"},{"id":"feet","label":"Feet","raid":"m10s","bookCost":4,"upgrade":"glaze"},{"id":"earrings","label":"Earrings","raid":"m9s","bookCost":3,"upgrade":"glaze"},{"id":"neck","label":"Necklace","raid":"m9s","bookCost":3,"upgrade":"glaze"},{"id":"wrists","label":"Bracelets","raid":"m9s","bookCost":3,"upgrade":"glaze"},{"id":"ring1","label":"Ring 1","raid":"m9s","bookCost":3,"upgrade":"glaze"},{"id":"ring2","label":"Ring 2","raid":"m9s","bookCost":3,"upgrade":"glaze"}],"upgrades":[{"id":"glaze","label":"Thundersteeping Glaze","raid":"m10s","bookCost":3},{"id":"twine","label":"Thundersteeped Twine","raid":"m11s","bookCost":4},{"id":"solvent","label":"Thundersteeped Solvent","raid":"m11s","bookCost":4}],"raids":[{"id":"m9s","label":"M9S","name":"AAC Heavyweight M1 (Savage)","book":"AAC Illustrated: HW Edition I","awards":[{"id":"gear","label":"Accessory coffer","kind":"gear","quantityPerClear":1}]},{"id":"m10s","label":"M10S","name":"AAC Heavyweight M2 (Savage)","book":"AAC Illustrated: HW Edition II","awards":[{"id":"gear","label":"Armour coffer","kind":"gear","quantityPerClear":1},{"id":"glaze","label":"Thundersteeping Glaze","kind":"upgrade","upgrade":"glaze","quantityPerClear":1}]},{"id":"m11s","label":"M11S","name":"AAC Heavyweight M3 (Savage)","book":"AAC Illustrated: HW Edition III","awards":[{"id":"gear","label":"Armour coffer","kind":"gear","quantityPerClear":1},{"id":"twine","label":"Thundersteeped Twine","kind":"upgrade","upgrade":"twine","quantityPerClear":1},{"id":"solvent","label":"Thundersteeped Solvent","kind":"upgrade","upgrade":"solvent","quantityPerClear":1}]}]};</script>
+  <script type="module">function blankPlayer(config) {
+  return {
+    needs: Object.fromEntries(config.slots.map((slot) => [slot.id, "none"])),
+    complete: Object.fromEntries(config.slots.map((slot) => [slot.id, false])),
+    books: Object.fromEntries(config.raids.map((raid) => [raid.id, 0])),
+    upgrades: Object.fromEntries(config.upgrades.map((upgrade) => [upgrade.id, 0]))
+  };
+}
+
+function blankState(config) {
+  return { v: 1, players: Object.fromEntries(config.players.map((name) => [name, blankPlayer(config)])), runs: [] };
+}
+
+function normalizeState(config, candidate) {
+  const clean = blankState(config);
+  if (!candidate || candidate.v !== 1 || typeof candidate.players !== "object") return clean;
+  for (const name of config.players) {
+    const input = candidate.players[name];
+    if (!input) continue;
+    for (const slot of config.slots) {
+      if (["none", "augmented", "raid"].includes(input.needs?.[slot.id])) clean.players[name].needs[slot.id] = input.needs[slot.id];
+      clean.players[name].complete[slot.id] = Boolean(input.complete?.[slot.id]);
+    }
+    for (const raid of config.raids) clean.players[name].books[raid.id] = safeCount(input.books?.[raid.id]);
+    for (const upgrade of config.upgrades) clean.players[name].upgrades[upgrade.id] = safeCount(input.upgrades?.[upgrade.id]);
+  }
+  clean.runs = Array.isArray(candidate.runs) ? candidate.runs.slice(-100).filter((run) => run && typeof run === "object") : [];
+  return clean;
+}
+
+function safeCount(value) {
+  const number = Number(value);
+  return Number.isFinite(number) ? Math.max(0, Math.min(999, Math.trunc(number))) : 0;
+}
+
+function remainingNeeds(config, state, raidId) {
+  const results = [];
+  for (const name of config.players) {
+    const player = state.players[name];
+    const availableUpgrades = { ...player.upgrades };
+    for (const slot of config.slots) {
+      const target = player.needs[slot.id];
+      if (target === "none" || player.complete[slot.id]) continue;
+      if (target === "raid" && slot.raid === raidId) results.push({ player: name, slot, target, reward: "gear", bookCost: slot.bookCost });
+      if (target === "augmented") {
+        const upgrade = config.upgrades.find((item) => item.id === slot.upgrade);
+        if (upgrade?.raid !== raidId) continue;
+        if ((availableUpgrades[upgrade.id] ?? 0) > 0) {
+          availableUpgrades[upgrade.id] -= 1;
+          continue;
+        }
+        results.push({ player: name, slot, target, reward: upgrade.id, bookCost: upgrade.bookCost });
+      }
+    }
+  }
+  return results;
+}
+
+function optionVectors(needs, books) {
+  const vectors = [];
+  const visit = (index, spent, drops) => {
+    if (spent > books) return;
+    if (index === needs.length) {
+      vectors.push(drops);
+      return;
+    }
+    const need = needs[index];
+    visit(index + 1, spent + need.bookCost, drops);
+    visit(index + 1, spent, { ...drops, [need.reward]: (drops[need.reward] ?? 0) + 1 });
+  };
+  visit(0, 0, {});
+  return vectors;
+}
+
+function feasibleAfterClears(config, state, raid, clears) {
+  const capacity = Object.fromEntries(raid.awards.map((award) => [award.id, award.quantityPerClear * clears]));
+  const byPlayer = new Map(config.players.map((name) => [name, []]));
+  for (const need of remainingNeeds(config, state, raid.id)) byPlayer.get(need.player).push(need);
+  let totals = [{}];
+  for (const name of config.players) {
+    const options = optionVectors(byPlayer.get(name), state.players[name].books[raid.id] + clears);
+    const next = [];
+    for (const total of totals) {
+      for (const option of options) {
+        const merged = { ...total };
+        let valid = true;
+        for (const [reward, count] of Object.entries(option)) {
+          merged[reward] = (merged[reward] ?? 0) + count;
+          if (merged[reward] > (capacity[reward] ?? 0)) { valid = false; break; }
+        }
+        if (valid) next.push(merged);
+      }
+    }
+    if (!next.length) return false;
+    totals = [...new Map(next.map((vector) => [Object.entries(vector).sort().map(([key, value]) => `${key}:${value}`).join("|"), vector])).values()];
+  }
+  return totals.length > 0;
+}
+
+function runsRemaining(config, state, raidId) {
+  const raid = config.raids.find((item) => item.id === raidId);
+  if (!raid) return 0;
+  if (!remainingNeeds(config, state, raidId).length) return 0;
+  for (let clears = 0; clears <= 200; clears += 1) {
+    if (feasibleAfterClears(config, state, raid, clears)) return clears;
+  }
+  return Infinity;
+}
+
+function acquireWithBooks(config, state, playerName, slotId) {
+  const player = state.players[playerName];
+  const slot = config.slots.find((item) => item.id === slotId);
+  if (!player || !slot || player.complete[slotId] || player.needs[slotId] === "none") return false;
+  const target = player.needs[slotId];
+  const resource = target === "raid" ? slot : config.upgrades.find((item) => item.id === slot.upgrade);
+  if (!resource || player.books[resource.raid] < resource.bookCost) return false;
+  player.books[resource.raid] -= resource.bookCost;
+  player.complete[slotId] = true;
+  return true;
+}
+
+function acquireWithUpgrade(config, state, playerName, slotId) {
+  const player = state.players[playerName];
+  const slot = config.slots.find((item) => item.id === slotId);
+  if (!player || !slot || player.complete[slotId] || player.needs[slotId] !== "augmented") return false;
+  if ((player.upgrades[slot.upgrade] ?? 0) < 1) return false;
+  player.upgrades[slot.upgrade] -= 1;
+  player.complete[slotId] = true;
+  return true;
+}
+
+const config = window.TRACKER_CONFIG;
+const app = document.querySelector("#app");
+const choiceLabel = Object.fromEntries(config.choices.map((choice) => [choice.id, choice.label]));
+const slotById = Object.fromEntries(config.slots.map((slot) => [slot.id, slot]));
+const raidById = Object.fromEntries(config.raids.map((raid) => [raid.id, raid]));
+const upgradeById = Object.fromEntries(config.upgrades.map((upgrade) => [upgrade.id, upgrade]));
+let activeView = "overview";
+let toastTimer;
+
+const esc = (value) => String(value).replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]);
+const encode = (value) => btoa(String.fromCharCode(...new TextEncoder().encode(JSON.stringify(value)))).replaceAll("+", "-").replaceAll("/", "_").replace(/=+$/, "");
+const decode = (value) => JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(value.replaceAll("-", "+").replaceAll("_", "/") + "===".slice((value.length + 3) % 4)), (character) => character.charCodeAt(0))));
+
+function compactState(state) {
+  return {
+    v: 1,
+    p: config.players.map((name) => {
+      const player = state.players[name];
+      return [
+        config.slots.map((slot) => ({ none: "0", augmented: "a", raid: "r" })[player.needs[slot.id]]).join(""),
+        config.slots.map((slot) => player.complete[slot.id] ? "1" : "0").join(""),
+        config.raids.map((raid) => player.books[raid.id]),
+        config.upgrades.map((upgrade) => player.upgrades[upgrade.id])
+      ];
+    }),
+    r: state.runs.slice(-30)
+  };
+}
+
+function expandState(payload) {
+  if (!payload || payload.v !== 1 || !Array.isArray(payload.p)) return payload;
+  const result = blankState(config);
+  config.players.forEach((name, playerIndex) => {
+    const row = payload.p[playerIndex];
+    if (!Array.isArray(row)) return;
+    config.slots.forEach((slot, index) => {
+      result.players[name].needs[slot.id] = ({ "0": "none", a: "augmented", r: "raid" })[row[0]?.[index]] ?? "none";
+      result.players[name].complete[slot.id] = row[1]?.[index] === "1";
+    });
+    config.raids.forEach((raid, index) => result.players[name].books[raid.id] = safeCount(row[2]?.[index]));
+    config.upgrades.forEach((upgrade, index) => result.players[name].upgrades[upgrade.id] = safeCount(row[3]?.[index]));
+  });
+  result.runs = Array.isArray(payload.r) ? payload.r : [];
+  return result;
+}
+
+function readState() {
+  const match = location.hash.match(/^#s=([^&]+)/);
+  if (!match) return blankState(config);
+  try { return normalizeState(config, expandState(decode(match[1]))); }
+  catch { return blankState(config); }
+}
+
+let state = readState();
+
+function save() {
+  history.replaceState(null, "", `#s=${encode(compactState(state))}`);
+}
+
+function notify(message) {
+  const toast = document.querySelector("#toast");
+  if (!toast) return;
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
+}
+
+async function copyText(text, message) {
+  try { await navigator.clipboard.writeText(text); }
+  catch {
+    const area = document.createElement("textarea");
+    area.value = text; document.body.append(area); area.select(); document.execCommand("copy"); area.remove();
+  }
+  notify(message);
+}
+
+function needCounts() {
+  const result = {};
+  for (const raid of config.raids) {
+    const needs = remainingNeeds(config, state, raid.id);
+    const bookShortfall = config.players.reduce((total, name) => {
+      const personalCost = needs.filter((need) => need.player === name).reduce((sum, need) => sum + need.bookCost, 0);
+      return total + Math.max(0, personalCost - state.players[name].books[raid.id]);
+    }, 0);
+    result[raid.id] = {
+      needs,
+      gear: needs.filter((need) => need.target === "raid").length,
+      upgrades: Object.fromEntries(config.upgrades.map((upgrade) => [upgrade.id, needs.filter((need) => need.reward === upgrade.id).length])),
+      books: bookShortfall,
+      runs: runsRemaining(config, state, raid.id)
+    };
+  }
+  return result;
+}
+
+function statCards() {
+  const counts = needCounts();
+  return config.raids.map((raid) => {
+    const count = counts[raid.id];
+    const resourceBits = [`${count.gear} gear`, `${count.books} more books if bought`];
+    for (const award of raid.awards.filter((item) => item.kind === "upgrade")) resourceBits.push(`${count.upgrades[award.upgrade] ?? 0} ${award.label.replace(/^Thundersteep(?:ed|ing) /, "")}`);
+    return `<article class="stat-card"><span class="eyebrow">${esc(raid.label)}</span><strong>${Number.isFinite(count.runs) ? count.runs : "—"}</strong><span>estimated clears left</span><small>${esc(resourceBits.join(" · "))}</small></article>`;
+  }).join("");
+}
+
+function overview() {
+  const rows = config.players.map((name) => {
+    const player = state.players[name];
+    const wanted = config.slots.filter((slot) => player.needs[slot.id] !== "none");
+    const done = wanted.filter((slot) => player.complete[slot.id]).length;
+    return `<tr><th>${esc(name)}</th><td><div class="progress"><i style="width:${wanted.length ? done / wanted.length * 100 : 100}%"></i></div><small>${done}/${wanted.length} complete</small></td>${config.raids.map((raid) => `<td>${player.books[raid.id]} <small>${esc(raid.label)} books</small></td>`).join("")}<td>${config.upgrades.map((upgrade) => `<span class="chip">${player.upgrades[upgrade.id]} ${esc(upgrade.label.replace(/^Thundersteep(?:ed|ing) /, ""))}</span>`).join(" ")}</td></tr>`;
+  }).join("");
+  return `<section class="stats">${statCards()}</section><section class="panel"><div class="panel-heading"><div><span class="eyebrow">Party status</span><h2>At a glance</h2></div><button data-action="copy-url">Copy shared URL</button></div><div class="table-scroll"><table><thead><tr><th>Player</th><th>Gear</th>${config.raids.map((raid) => `<th>${esc(raid.label)}</th>`).join("")}<th>Upgrade items</th></tr></thead><tbody>${rows}</tbody></table></div></section>${runHistory()}`;
+}
+
+function setup() {
+  const playerSections = config.players.map((name) => {
+    const player = state.players[name];
+    const rows = config.slots.map((slot) => {
+      const target = player.needs[slot.id];
+      const complete = player.complete[slot.id];
+      const source = target === "raid" ? `${raidById[slot.raid]?.label ?? "M12S"} · ${slot.bookCost} books` : target === "augmented" ? `${upgradeById[slot.upgrade]?.label ?? "Upgrade item"}` : "—";
+      const actions = target === "none" ? "" : `<button class="small" data-action="toggle-complete" data-player="${esc(name)}" data-slot="${slot.id}">${complete ? "Undo" : "Mark obtained"}</button>${!complete ? `<button class="small ghost" data-action="buy-books" data-player="${esc(name)}" data-slot="${slot.id}">Use books</button>${target === "augmented" ? `<button class="small ghost" data-action="use-upgrade" data-player="${esc(name)}" data-slot="${slot.id}">Use item</button>` : ""}` : ""}`;
+      return `<tr class="${complete ? "completed" : ""}"><th>${esc(slot.label)}</th><td><select data-field="need" data-player="${esc(name)}" data-slot="${slot.id}">${config.choices.map((choice) => `<option value="${choice.id}" ${choice.id === target ? "selected" : ""}>${esc(choice.label)}</option>`).join("")}</select></td><td><small>${esc(source)}</small></td><td class="actions">${actions}</td></tr>`;
+    }).join("");
+    return `<details class="player" ${config.players.indexOf(name) === 0 ? "open" : ""}><summary><strong>${esc(name)}</strong><span>${config.slots.filter((slot) => player.needs[slot.id] !== "none" && !player.complete[slot.id]).length} remaining</span></summary><div class="player-tools"><button class="small" data-action="copy-player" data-player="${esc(name)}">Copy ${esc(name)}'s input</button></div><div class="table-scroll"><table><thead><tr><th>Slot</th><th>Target</th><th>Cost/source</th><th>Obtained</th></tr></thead><tbody>${rows}</tbody></table></div></details>`;
+  }).join("");
+  return `<section class="panel"><div class="panel-heading"><div><span class="eyebrow">Best-in-slot input</span><h2>Gear plans</h2></div></div><div class="import-row"><select id="import-target">${config.players.map((name) => `<option>${esc(name)}</option>`).join("")}</select><input id="import-token" placeholder="Paste a player's setup code"><button data-action="import-player">Import into player</button></div>${playerSections}</section>`;
+}
+
+function inventory() {
+  const rows = config.players.map((name) => `<tr><th>${esc(name)}</th>${config.raids.map((raid) => countControl(name, "book", raid.id, state.players[name].books[raid.id])).join("")}${config.upgrades.map((upgrade) => countControl(name, "upgrade", upgrade.id, state.players[name].upgrades[upgrade.id])).join("")}</tr>`).join("");
+  return `<section class="panel"><div class="panel-heading"><div><span class="eyebrow">Manual corrections</span><h2>Books and upgrade items</h2></div></div><p class="hint">Use Record clear for normal drops. These controls are useful for correcting existing stock or recording purchases.</p><div class="table-scroll"><table><thead><tr><th>Player</th>${config.raids.map((raid) => `<th>${esc(raid.label)} books</th>`).join("")}${config.upgrades.map((upgrade) => `<th>${esc(upgrade.label.replace(/^Thundersteep(?:ed|ing) /, ""))}</th>`).join("")}</tr></thead><tbody>${rows}</tbody></table></div></section>`;
+}
+
+function countControl(player, kind, id, count) {
+  return `<td><div class="counter"><button aria-label="Remove one" data-action="count" data-delta="-1" data-kind="${kind}" data-id="${id}" data-player="${esc(player)}">−</button><strong>${count}</strong><button aria-label="Add one" data-action="count" data-delta="1" data-kind="${kind}" data-id="${id}" data-player="${esc(player)}">+</button></div></td>`;
+}
+
+function record() {
+  const forms = config.raids.map((raid) => {
+    const attendance = config.players.map((name) => `<label class="check"><input type="checkbox" name="attendance" value="${esc(name)}" checked> ${esc(name)}</label>`).join("");
+    const awards = raid.awards.flatMap((award) => Array.from({ length: award.quantityPerClear }, (_, index) => {
+      if (award.kind === "gear") {
+        const options = remainingNeeds(config, state, raid.id).filter((need) => need.target === "raid").map((need) => `<option value="${esc(need.player)}|${need.slot.id}">${esc(need.player)} — ${esc(need.slot.label)}</option>`).join("");
+        return `<label>${esc(award.label)}${award.quantityPerClear > 1 ? ` ${index + 1}` : ""}<select name="award:${award.id}:${index}" data-award-kind="gear"><option value="">No tracked winner</option>${options}</select></label>`;
+      }
+      return `<label>${esc(award.label)}${award.quantityPerClear > 1 ? ` ${index + 1}` : ""}<select name="award:${award.id}:${index}" data-award-kind="upgrade" data-upgrade="${award.upgrade}"><option value="">No tracked winner</option>${config.players.map((name) => `<option>${esc(name)}</option>`).join("")}</select></label>`;
+    })).join("");
+    return `<form class="run-form" data-raid="${raid.id}"><div class="run-title"><div><span class="eyebrow">${esc(raid.label)}</span><h2>${esc(raid.name)}</h2></div><strong>${runsRemaining(config, state, raid.id)} left</strong></div><fieldset><legend>Who receives this clear's book?</legend><div class="checks">${attendance}</div></fieldset><div class="award-grid">${awards || "<p>No rolled rewards configured.</p>"}</div><button type="submit">Record clear</button></form>`;
+  }).join("");
+  return `<section class="run-grid">${forms}</section>`;
+}
+
+function runHistory() {
+  if (!state.runs.length) return "";
+  return `<section class="panel"><div class="panel-heading"><div><span class="eyebrow">Audit trail</span><h2>Recent clears</h2></div></div><ol class="history">${[...state.runs].reverse().slice(0, 10).map((run) => `<li><strong>${esc(raidById[run.raid]?.label ?? run.raid)}</strong><span>${esc(run.summary ?? "Clear recorded")}</span><time>${esc(run.at ?? "")}</time></li>`).join("")}</ol></section>`;
+}
+
+function render() {
+  const content = ({ overview, setup, inventory, record: record })[activeView]();
+  app.innerHTML = `<header><div><span class="kicker">DND FC · Gear tracker</span><h1>${esc(config.title)}</h1><p>${esc(config.subtitle ?? "")}</p></div><a href="${esc(config.sourceUrl ?? "#")}" target="_blank" rel="noreferrer">Loot table ↗</a></header><nav>${[["overview", "Overview"], ["setup", "Gear plans"], ["inventory", "Inventory"], ["record", "Record clear"]].map(([id, label]) => `<button class="${activeView === id ? "active" : ""}" data-view="${id}">${label}</button>`).join("")}</nav><main>${content}</main><div id="toast" role="status"></div>`;
+}
+
+app.addEventListener("click", async (event) => {
+  const viewButton = event.target.closest("[data-view]");
+  if (viewButton) { activeView = viewButton.dataset.view; render(); return; }
+  const button = event.target.closest("button[data-action]");
+  if (!button) return;
+  const { action, player, slot, kind, id } = button.dataset;
+  if (action === "copy-url") { save(); await copyText(location.href, "Shared URL copied"); return; }
+  if (action === "toggle-complete") state.players[player].complete[slot] = !state.players[player].complete[slot];
+  if (action === "buy-books" && !acquireWithBooks(config, state, player, slot)) { notify("Not enough books"); return; }
+  if (action === "use-upgrade" && !acquireWithUpgrade(config, state, player, slot)) { notify("That upgrade item is not in inventory"); return; }
+  if (action === "count") {
+    const bucket = kind === "book" ? state.players[player].books : state.players[player].upgrades;
+    bucket[id] = safeCount(bucket[id] + Number(button.dataset.delta));
+  }
+  if (action === "copy-player") {
+    await copyText(`p1.${encode(state.players[player])}`, `${player}'s setup copied`);
+    return;
+  }
+  if (action === "import-player") {
+    const target = document.querySelector("#import-target").value;
+    const token = document.querySelector("#import-token").value.trim();
+    try {
+      if (!token.startsWith("p1.")) throw new Error();
+      state.players[target] = normalizeState(config, { v: 1, players: { [target]: decode(token.slice(3)) } }).players[target];
+    } catch { notify("That player setup code is invalid"); return; }
+  }
+  save(); render();
+  if (action === "import-player") notify("Player setup imported");
+});
+
+app.addEventListener("change", (event) => {
+  const select = event.target.closest('[data-field="need"]');
+  if (!select) return;
+  const player = state.players[select.dataset.player];
+  player.needs[select.dataset.slot] = select.value;
+  player.complete[select.dataset.slot] = false;
+  save(); render();
+});
+
+app.addEventListener("submit", (event) => {
+  const form = event.target.closest(".run-form");
+  if (!form) return;
+  event.preventDefault();
+  const raidId = form.dataset.raid;
+  const attendees = [...form.querySelectorAll('[name="attendance"]:checked')].map((input) => input.value);
+  attendees.forEach((name) => state.players[name].books[raidId] += 1);
+  const notes = [`${attendees.length} books`];
+  for (const select of form.querySelectorAll("select[data-award-kind]")) {
+    if (!select.value) continue;
+    if (select.dataset.awardKind === "gear") {
+      const [name, slotId] = select.value.split("|");
+      state.players[name].complete[slotId] = true;
+      notes.push(`${name}: ${slotById[slotId].label}`);
+    } else {
+      state.players[select.value].upgrades[select.dataset.upgrade] += 1;
+      notes.push(`${select.value}: ${upgradeById[select.dataset.upgrade].label.replace(/^Thundersteep(?:ed|ing) /, "")}`);
+    }
+  }
+  state.runs.push({ raid: raidId, at: new Date().toLocaleDateString(), summary: notes.join(" · ") });
+  save(); render(); notify(`${raidById[raidId].label} clear recorded`);
+});
+
+window.addEventListener("hashchange", () => { state = readState(); render(); });
+render();
+</script>
+</body>
+</html>
