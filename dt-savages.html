@@ -267,7 +267,16 @@ function setup() {
       const target = player.needs[slot.id];
       const complete = player.complete[slot.id];
       const source = target === "raid" ? `${raidById[slot.raid]?.label ?? "M12S"} · ${slot.bookCost} books` : target === "augmented" ? `${upgradeById[slot.upgrade]?.label ?? "Upgrade item"}` : "—";
-      const actions = target === "none" ? "" : `<button class="small" data-action="toggle-complete" data-player="${esc(name)}" data-slot="${slot.id}">${complete ? "Undo" : "Mark obtained"}</button>${!complete ? `<button class="small ghost" data-action="buy-books" data-player="${esc(name)}" data-slot="${slot.id}">Use books</button>${target === "augmented" ? `<button class="small ghost" data-action="use-upgrade" data-player="${esc(name)}" data-slot="${slot.id}">Use item</button>` : ""}` : ""}`;
+      const upgrade = target === "augmented" ? upgradeById[slot.upgrade] : null;
+      const bookCost = target === "raid" ? slot.bookCost : upgrade?.bookCost;
+      const bookRaid = raidById[target === "raid" ? slot.raid : upgrade?.raid];
+      const bookAction = bookCost && bookRaid
+        ? `Obtain with Books (-${bookCost} ${bookRaid.book})`
+        : "Obtain with Books";
+      const itemAction = upgrade
+        ? `Obtain with ${upgrade.label} (-1 ${upgrade.label})`
+        : "";
+      const actions = target === "none" ? "" : `<button class="small" data-action="toggle-complete" data-player="${esc(name)}" data-slot="${slot.id}">${complete ? "Undo" : "Obtain with Coffer/Already Have"}</button>${!complete ? `<button class="small ghost" data-action="buy-books" data-player="${esc(name)}" data-slot="${slot.id}">${esc(bookAction)}</button>${itemAction ? `<button class="small ghost" data-action="use-upgrade" data-player="${esc(name)}" data-slot="${slot.id}">${esc(itemAction)}</button>` : ""}` : ""}`;
       return `<tr class="${complete ? "completed" : ""}"><th>${esc(slot.label)}</th><td><select data-field="need" data-player="${esc(name)}" data-slot="${slot.id}">${config.choices.map((choice) => `<option value="${choice.id}" ${choice.id === target ? "selected" : ""}>${esc(choice.label)}</option>`).join("")}</select></td><td><small>${esc(source)}</small></td><td class="obtained-cell"><div class="actions">${actions || "<span class=\"not-applicable\">—</span>"}</div></td></tr>`;
     }).join("");
     return `<details class="player" data-player-panel="${esc(name)}" ${openPlayers.has(name) ? "open" : ""}><summary><strong>${esc(name)}</strong><span>${config.slots.filter((slot) => player.needs[slot.id] !== "none" && !player.complete[slot.id]).length} remaining</span></summary><div class="player-tools"><button class="small" data-action="copy-player" data-player="${esc(name)}">Copy ${esc(name)}'s input</button></div><div class="table-scroll"><table><thead><tr><th>Slot</th><th>Target</th><th>Cost/source</th><th>Obtained</th></tr></thead><tbody>${rows}</tbody></table></div></details>`;
